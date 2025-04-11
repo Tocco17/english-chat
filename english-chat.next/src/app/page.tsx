@@ -1,6 +1,6 @@
 'use client';
 
-import openAiHandler from '@/api/open-ai.controller';
+import Post from '@/api/calls/post';
 import { useState } from 'react';
 
 interface ApiResponse {
@@ -23,9 +23,11 @@ export default function Home() {
 		setChatHistory(prev => [...prev, { role: 'user', content: userMessage }]);
 
 		try {
-			const response = await openAiHandler(userMessage)
+			// const response = await openAiHandler(userMessage)
+			const response = await Post('open-ai/chat', { message: userMessage })
 
 			const data: ApiResponse = await response.json();
+
 			if (response.ok) {
 				setChatHistory(prev => [...prev, { role: 'assistant', content: data.reply }]);
 			} else {
