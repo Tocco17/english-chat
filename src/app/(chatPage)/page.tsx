@@ -10,9 +10,6 @@ export default function ChatPage() {
 			<CardContent>
 				<Chat />
 			</CardContent>
-			<CardFooter>
-				<p>Card Footer</p>
-			</CardFooter>
 		</Card>
 	)
 }
