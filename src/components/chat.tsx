@@ -15,7 +15,7 @@ export function Chat() {
 
 	return (<>
 		<div className="flex flex-col items-start justify-end w-full h-full gap-6">
-			<div className="flex flex-col items-start justify-end w-full h-full gap-2 px-2">
+			<div className="flex-grow overflow-y-auto flex flex-col items-start justify-end w-full">
 				{
 					chatState.messages?.map((message, index) => (
 						<p
