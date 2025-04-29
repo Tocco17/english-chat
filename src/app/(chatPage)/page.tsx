@@ -3,11 +3,11 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 
 export default function ChatPage() {
 	return (
-		<Card>
+		<Card className="h-full">
 			<CardHeader>
 				<CardTitle>Chat</CardTitle>
 			</CardHeader>
-			<CardContent>
+			<CardContent className="h-full">
 				<Chat />
 			</CardContent>
 		</Card>

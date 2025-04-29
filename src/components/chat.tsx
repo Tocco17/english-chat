@@ -1,38 +1,52 @@
 "use client"
 
-import { ChatState, Message } from "@/models/message"
-import { useActionState, useState } from "react"
+import { ChatState } from "@/models/message"
+import { useActionState } from "react"
 import { Input } from "./ui/input"
-import { useFormState } from "react-dom"
 import { sendMessage } from "@/app/(chatPage)/_actions/chat"
 
 export function Chat() {
 	const [chatState, action] = useActionState(
 		sendMessage,
-		{} as ChatState
+		{
+			messages: [{ message: "risposta", deliveredBy: "you" }]
+		} as ChatState
 	)
 
 	return (<>
-	<div className="flex flex-col">
-		{
-			chatState.messages?.map((message, index) => (
-				<p key={`message-chat-${index}`}>{message.message}</p>
-			))
-		}
-		
-		<form 
-			action={action}
-		>
-			<Input 
-				name="message"
-			/>
-			
-			<input 
-				name="deliveredBy"
-				value="me"
-				type="hidden"
-			/>
-		</form>
-	</div>
+		<div className="flex flex-col items-start justify-end w-full h-full gap-6">
+			<div className="flex flex-col items-start justify-end w-full h-full gap-2 px-2">
+				{
+					chatState.messages?.map((message, index) => (
+						<p
+							key={`message-chat-${index}`}
+							className={
+								message.deliveredBy === "me"
+									? "self-end"
+									: ""
+							}
+						>
+							{message.message}
+						</p>
+					))
+				}
+			</div>
+
+			<form
+				action={action}
+				className="w-full"
+			>
+				<Input
+					name="message"
+					placeholder="Write a message..."
+				/>
+
+				<input
+					name="deliveredBy"
+					value="me"
+					type="hidden"
+				/>
+			</form>
+		</div>
 	</>)
 }
