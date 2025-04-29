@@ -15,7 +15,7 @@ export function Chat() {
 
 	return (<>
 		<div className="flex flex-col items-start justify-end w-full h-full gap-6">
-			<div className="flex-grow overflow-y-auto flex flex-col items-start justify-end w-full">
+			<div className="flex-grow overflow-y-auto flex flex-col items-start justify-end w-full bg-gray-200">
 				{
 					chatState.messages?.map((message, index) => (
 						<p
@@ -39,6 +39,7 @@ export function Chat() {
 				<Input
 					name="message"
 					placeholder="Write a message..."
+					className="bg-white"
 				/>
 
 				<input

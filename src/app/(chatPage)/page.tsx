@@ -3,7 +3,7 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 
 export default function ChatPage() {
 	return (
-		<Card className="h-full">
+		<Card className="h-full bg-gray-400">
 			<CardHeader>
 				<CardTitle>Chat</CardTitle>
 			</CardHeader>
