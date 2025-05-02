@@ -5,6 +5,7 @@ import { useState } from 'react'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
+import { sendMessageToAI } from '@/app/(chatPage)/_actions/chat'
 
 type Message = {
 	id: number
@@ -25,20 +26,17 @@ export function Chat() {
 			sender: 'user',
 		}
 
-		setMessages([...messages, newMessage])
+		setMessages(prev => [...prev, newMessage])
 		setInput('')
 
-		// Simula risposta bot
-		setTimeout(() => {
-			setMessages((prev) => [
-				...prev,
-				{
+		sendMessageToAI(newMessage.text)
+			.then(response => {
+				setMessages(prev => [...prev, {
 					id: Date.now() + 1,
-					text: 'Risposta automatica',
+					text: response,
 					sender: 'bot',
-				},
-			])
-		}, 500)
+				}])
+			})
 	}
 
 	return (

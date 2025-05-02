@@ -1,8 +1,9 @@
-export type DeliveredBy = "me" | "you"
+export type Sender = 'user' | 'bot'
 
 export type Message = {
-	message: string
-	deliveredBy: DeliveredBy
+	id: number,
+	message: string,
+	sender: Sender,
 }
 
 export type ChatState = {

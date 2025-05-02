@@ -3,10 +3,10 @@ import { z } from "zod";
 
 const addSchema = z.object({
 	message: z.string().min(1),
-	deliveredBy: z.enum(["me", "you"])
+	sender: z.enum(["user", "bot"]),
 })
 
-export async function sendMessage(prevState: ChatState, formData: FormData) {
+export async function sendMessageForm(prevState: ChatState, formData: FormData) {
 	const result = addSchema.safeParse(Object.fromEntries(formData.entries()))
 
 	if (result.success === false) {
@@ -26,4 +26,8 @@ export async function sendMessage(prevState: ChatState, formData: FormData) {
 		...prevState,
 		messages: messages
 	} as ChatState
+}
+
+export async function sendMessageToAI(message: string){
+	return 'message'
 }
