@@ -6,36 +6,29 @@ import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
 import { sendMessageToAI } from '@/app/(chatPage)/_actions/chat'
-
-type Message = {
-	id: number
-	text: string
-	sender: 'user' | 'bot'
-}
+import { Message, MessageType } from '@/models/message'
 
 export function Chat() {
 	const [messages, setMessages] = useState<Message[]>([])
 	const [input, setInput] = useState('')
+	const [messageType, setMessageType] = useState<MessageType>('first')
 
 	const sendMessage = () => {
 		if (!input.trim()) return
 
 		const newMessage: Message = {
-			id: Date.now(),
+			id: messages.length + 1,
 			text: input,
 			sender: 'user',
+			type: messageType
 		}
 
-		setMessages(prev => [...prev, newMessage])
+		setMessages(prev => [...prev, {...newMessage, id: prev.length + 1}])
 		setInput('')
 
-		sendMessageToAI(newMessage.text)
+		sendMessageToAI(newMessage)
 			.then(response => {
-				setMessages(prev => [...prev, {
-					id: Date.now() + 1,
-					text: response,
-					sender: 'bot',
-				}])
+				setMessages(prev => [...prev, response])
 			})
 	}
 
@@ -45,8 +38,7 @@ export function Chat() {
 				{messages.map((msg) => (
 					<div
 						key={msg.id}
-						className={`flex ${msg.sender === 'user' ? 'justify-end' : 'justify-start'
-							}`}
+						className={`flex ${msg.sender === 'user' ? 'justify-end' : 'justify-start'}`}
 					>
 						<Card className="max-w-sm">
 							<CardContent
